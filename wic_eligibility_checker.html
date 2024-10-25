@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WIC Eligibility Screener</title>
+</head>
+<body>
+    <h1>WIC Eligibility Screener for a 4-Person Household</h1>
+    <form id="wicForm">
+        <h3>Household Information</h3>
+        <label for="income">Total Annual Household Income ($):</label>
+        <input type="number" id="income" name="income" required><br><br>
+
+        <label for="assistance">Does anyone in the household receive Medicaid, SNAP, or Cash Assistance?</label>
+        <select id="assistance" name="assistance" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label for="residency">Does the household reside in New York State?</label>
+        <select id="residency" name="residency" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <h3>Household Members</h3>
+
+        <label>Is there a pregnant member?</label>
+        <select id="pregnant" name="pregnant" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label>Is there a mother with a baby up to 6 months old?</label>
+        <select id="mother_baby" name="mother_baby" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label>Is there a breastfeeding mother with a baby up to 12 months old?</label>
+        <select id="breastfeeding_mother" name="breastfeeding_mother" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label>Is there an infant or child under 5 years old?</label>
+        <select id="child_under_5" name="child_under_5" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label>Does the qualifying household member have a dietary need?</label>
+        <select id="dietary_need" name="dietary_need" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <button type="submit">Check Eligibility</button>
+    </form>
+
+    <script>
+        document.getElementById("wicForm").onsubmit = function(event) {
+            event.preventDefault();
+            const income = parseFloat(document.getElementById("income").value);
+            const assistance = document.getElementById("assistance").value === "yes";
+            const residency = document.getElementById("residency").value === "yes";
+            const pregnant = document.getElementById("pregnant").value === "yes";
+            const mother_baby = document.getElementById("mother_baby").value === "yes";
+            const breastfeeding_mother = document.getElementById("breastfeeding_mother").value === "yes";
+            const child_under_5 = document.getElementById("child_under_5").value === "yes";
+            const dietary_need = document.getElementById("dietary_need").value === "yes";
+
+            const incomeEligible = income <= 57720 || assistance;
+            const qualifyingMember = (pregnant || mother_baby || breastfeeding_mother || child_under_5) && dietary_need;
+            const nyResidency = residency;
+
+            if (incomeEligible && qualifyingMember && nyResidency) {
+                alert("Household is eligible for WIC.");
+            } else {
+                alert("Household is not eligible for WIC.");
+            }
+        };
+    </script>
+</body>
+</html>
