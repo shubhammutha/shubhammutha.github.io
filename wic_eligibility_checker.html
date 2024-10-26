@@ -4,25 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WIC Eligibility Screener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #00509e;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00509e;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #003f7f;
+        }
+    </style>
 </head>
 <body>
-    <h1>WIC Eligibility Screener for Individuals</h1>
+    <h1>WIC Eligibility Screener for Individuals or Guardians</h1>
     <form id="wicForm">
         <h3>Personal Information</h3>
         <label for="income">Total Annual Income ($):</label>
-        <input type="number" id="income" name="income" required><br><br>
+        <input type="number" id="income" name="income" required>
 
         <label for="assistance">Do you receive Medicaid, SNAP, or Cash Assistance?</label>
         <select id="assistance" name="assistance" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
         <label for="residency">Do you reside in New York State?</label>
         <select id="residency" name="residency" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
         <h3>Eligibility Criteria</h3>
 
@@ -30,31 +76,31 @@
         <select id="pregnant" name="pregnant" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
         <label>Are you a mother with a baby up to 6 months old?</label>
         <select id="mother_baby" name="mother_baby" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
         <label>Are you a breastfeeding mother with a baby up to 12 months old?</label>
         <select id="breastfeeding_mother" name="breastfeeding_mother" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
-        <label>Are you an infant or child under 5 years old?</label>
+        <label>Are you applying on behalf of an infant or child under 5 years old?</label>
         <select id="child_under_5" name="child_under_5" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
-        <label>Do you have a dietary need assessed by a health professional?</label>
+        <label>Does the individual (you or the child) have a dietary need assessed by a health professional?</label>
         <select id="dietary_need" name="dietary_need" required>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">Check Eligibility</button>
     </form>
@@ -71,7 +117,6 @@
             const child_under_5 = document.getElementById("child_under_5").value === "yes";
             const dietary_need = document.getElementById("dietary_need").value === "yes";
 
-            // Updated income check
             const incomeEligible = income <= 57720 || assistance && income <= 57720;
             const qualifyingIndividual = (pregnant || mother_baby || breastfeeding_mother || child_under_5) && dietary_need;
             const nyResidency = residency;
